@@ -1,5 +1,6 @@
 import api from "@/api/api";
 import { LoginResponseType, LoginUserType, SignupResponseType, SignupUserType } from "@/types/types";
+import { setToken, setUserId } from "@/utils/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -17,8 +18,11 @@ export const useLogin = () =>{
     mutationFn:(payload:LoginUserType) =>{
       return loginUser(payload)
     },
-    onSuccess:() =>{
+    onSuccess:(values) =>{
+      setUserId(values.user_id)
+      setToken(values.token)
       router.push('/dashboard')
+      
     }
   })
 
