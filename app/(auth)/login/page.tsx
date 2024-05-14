@@ -52,8 +52,8 @@ const page = () => {
     resolver:zodResolver(loginSchema)
   })
 
-  const onSubmit =  async (payload:ILoginPayload) => {
-    await loginUser(payload)
+  const onSubmit = (payload:ILoginPayload) => {
+    loginUser(payload)
   }
 
   

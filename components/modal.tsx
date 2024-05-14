@@ -55,11 +55,17 @@ export default function Modal() {
     reset,
     formState:{errors}
   } = useForm<AddRecordSchema>({
-    resolver:zodResolver(addRecordSchema)
+    resolver:zodResolver(addRecordSchema),
   })
 
   const onSubmit = (payload:IAddRecordPayload)=>{
     addRecord({payload:payload, id:id})
+    reset({
+      record_email:"",
+      record_name:"",
+      record_password: "",
+
+    })
   }
 
 
