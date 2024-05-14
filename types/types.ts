@@ -32,3 +32,15 @@ export type AddRecordResponse = {
   record_name: string
   record_email: string
 }
+
+export type PatchRecordResponse = {
+  record_id: string | number
+  record_name: string
+  record_email: string
+}
+
+export type PatchRecordType = {
+  record_email: string
+  record_name : string 
+  record_password : string
+}
