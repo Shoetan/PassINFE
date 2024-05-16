@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Loader, Eye, EyeOff} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
-import { usePatchRecord } from '@/app/dashboard/query';
+import { usePatchRecord, useDeleteRecord} from '@/app/dashboard/query';
 import { AddRecordSchema, addRecordSchema } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -20,6 +20,7 @@ type IPatchRecordPayload = {
 export default function ViewRecords ({id,record_email,record_name,record_password}:{id:string|number; record_email:string; record_name:string; record_password:string | number}){
 
   const{patchRecord, patchingRecord} = usePatchRecord()
+  const{deleteRecord, deletingRecord} = useDeleteRecord()
 
   const {
     register,
@@ -33,6 +34,11 @@ export default function ViewRecords ({id,record_email,record_name,record_passwor
   const onSubmit = (payload:IPatchRecordPayload)=>{
     patchRecord({payload:payload, record_id:id})
   }
+
+  const removeRecord = () =>{
+    deleteRecord(id as any)
+  }
+
   
   return (
     <div className='max-w-7xl mx-auto my-4 bg-white/60 p-4 rounded-2xl shadow-2xl flex items-center justify-evenly gap-10'>
@@ -55,7 +61,7 @@ export default function ViewRecords ({id,record_email,record_name,record_passwor
       <div className='basis-1/2'>
         <div className='flex gap-4'>
         <Button onClick={handleSubmit(onSubmit)} variant='secondary'>{patchingRecord?(<Loader className='className="mr-2 h-4 w-4 animate-spin'/>):("Edit")}</Button>
-          <Trash2 className='cursor-pointer'/>
+          <Trash2 className='cursor-pointer' onClick={removeRecord}/>
         </div>
       </div>
     </div>
