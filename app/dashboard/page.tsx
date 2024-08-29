@@ -3,7 +3,8 @@
 import Modal from "@/components/modal";
 import ViewRecords from "@/components/viewRecords";
 import { useRecordsQuery } from "./query";
-import { Loader } from "lucide-react";
+import Spinner from "@/components/loader";
+import { getUserId } from "@/utils/utils";
 
 
 export default function page() {
@@ -15,13 +16,15 @@ export default function page() {
     record_password: any;
   }
 
-  const {records, fecthcingRecords} = useRecordsQuery()
+  const userId = getUserId()
+
+  const {records, fecthcingRecords} = useRecordsQuery(userId)
   return (
     <>
       <Modal />
 
       {
-        fecthcingRecords ? (<Loader/>):(
+        fecthcingRecords ? (<Spinner/>):(
           records?.map((record: IRecord) =>(
             <ViewRecords
               key={record.id}
